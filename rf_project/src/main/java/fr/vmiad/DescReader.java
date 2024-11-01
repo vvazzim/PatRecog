@@ -1,7 +1,7 @@
 package fr.vmiad;
 
-import java.io.BufferedReader;
 import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,29 +37,47 @@ public class DescReader {
         return descFiles;
     }
 
+    public static void renameFiles(List<String> directories, String oldExtension, String newExtension) {
+        for (String directoryPath : directories) {
+            File directory = new File(directoryPath);
+            if (directory.isDirectory()) {
+                File[] files = directory.listFiles((dir, name) -> name.endsWith(oldExtension));
+                if (files != null) {
+                    for (File file : files) {
+                        File renamedFile = new File(file.getAbsolutePath().replace(oldExtension, newExtension));
+                        if (file.renameTo(renamedFile)) {
+                            System.out.println("Renamed: " + file.getName() + " to " + renamedFile.getName());
+                        } else {
+                            System.out.println("Failed to rename: " + file.getName());
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Directory not found: " + directoryPath);
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        // Liste des dossiers avec des chemins relatifs
+        // Liste des dossiers, chaque dossier correspondant à un type de descripteur
         List<String> directories = List.of(
-                "../resources/Signatures/Zernike7",
-                "../resources/Signatures/ART",
-                "../resources/Signatures/Yang",
-                "../resources/Signatures/GFD");
+                "C:\\Users\\HOUdo\\OneDrive\\Documents\\Ecole\\Université\\M1\\RF\\RF_projet\\=SharvitB2\\=Signatures\\=Zernike7",
+                "C:\\Users\\HOUdo\\OneDrive\\Documents\\Ecole\\Université\\M1\\RF\\RF_projet\\=SharvitB2\\=Signatures\\=ART",
+                "C:\\Users\\HOUdo\\OneDrive\\Documents\\Ecole\\Université\\M1\\RF\\RF_projet\\=SharvitB2\\=Signatures\\=Yang",
+                "C:\\Users\\HOUdo\\OneDrive\\Documents\\Ecole\\Université\\M1\\RF\\RF_projet\\=SharvitB2\\=Signatures\\=GFD");
 
-        // Extension recherchée dans chaque dossier
-        String extension = ".zrk";
-        int fileCount = 0;
-        List<File> descFiles = listDescFiles(directories, extension);
+        // Renommer les fichiers
+        renameFiles(directories, ".zrk.txt", ".zrk");
 
+        // Test pour vérifier que les fichiers sont bien renommés
+        List<File> descFiles = listDescFiles(directories, ".zrk");
         for (File file : descFiles) {
             try {
-                List<String> features = readDesc(file.getPath()); // Utilisation de chemins relatifs
+                List<String> features = readDesc(file.getAbsolutePath());
                 System.out.println("Caractéristiques lues de : " + file.getName());
-                fileCount++;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Total files processed: " + fileCount);
     }
 }

@@ -24,9 +24,9 @@ public class Split {
         int validationSize = (int) (totalFiles * validationRatio);
 
         for (int i = 0; i < totalFiles; i++) {
-            System.out.println("Reading file: " + descFiles.get(i).getAbsolutePath());
+            // System.out.println("Reading file: " + descFiles.get(i).getAbsolutePath());
             List<String> features = DescReader.readDesc(descFiles.get(i).getAbsolutePath());
-            System.out.println("Features read: " + features);
+            // System.out.println("Features read: " + features);
             List<Double> doubleFeatures = convertFeatures(features);
             List<Double> normalizedFeatures = DataPreprocessor.normalizeFeatures(doubleFeatures);
 
@@ -85,7 +85,8 @@ public class Split {
         try {
             for (String directory : directories) {
                 List<File> descFiles = DescReader.listDescFiles(List.of(directory), extension);
-                System.out.println("Files in directory " + directory + ": " + descFiles.size());
+                // System.out.println("Files in directory " + directory + ": " +
+                // descFiles.size());
                 splitter.splitData(descFiles, trainRatio, validationRatio);
             }
 
