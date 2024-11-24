@@ -29,12 +29,12 @@ public class PGMReader {
     }
 
     public static void main(String[] args) {
-        String directoryPath = "C:\\Users\\HOUdo\\OneDrive\\Documents\\Ecole\\Université\\M1\\RF\\RF_projet\\=SharvitB2\\=Corpus\\pgm";
+        String directoryPath = "rf_project\\src\\main\\resources\\=Corpus\\=pgm";
         List<File> pgmFiles = listPGMFiles(directoryPath);
         int i = 0;
         for (File file : pgmFiles) {
             try {
-                BufferedImage image = readPGM(file.getAbsolutePath());
+                readPGM(file.getAbsolutePath());
                 // Afficher ou traiter l'image
                 System.out.println("Image lue : " + file.getName());
                 i++;
