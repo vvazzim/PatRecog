@@ -33,6 +33,7 @@ public class Split {
      * @param extension  L'extension des fichiers traités (ex. : ".zrk").
      */
     public void splitDataByExtension(List<File> descFiles, double trainRatio, String extension) {
+
         // Mélanger les fichiers de manière déterministe
         Collections.shuffle(descFiles, random);
 

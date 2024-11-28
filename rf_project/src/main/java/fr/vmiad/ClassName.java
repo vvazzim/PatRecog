@@ -40,14 +40,16 @@ public class ClassName {
         classMap.put("s08", "Elephant");
         classMap.put("s09", "Face");
         classMap.put("s10", "Fork");
-        classMap.put("s11", "Sword");
-        classMap.put("s12", "Glass");
-        classMap.put("s13", "Hammer");
-        classMap.put("s14", "Heart");
-        classMap.put("s15", "Key");
-        classMap.put("s16", "Monster");
-        classMap.put("s17", "Ray");
-        classMap.put("s18", "Turtle");
+
+        // Implémentation des méthodes de classification sur 10 classes
+        // classMap.put("s11", "Sword");
+        // classMap.put("s12", "Glass");
+        // classMap.put("s13", "Hammer");
+        // classMap.put("s14", "Heart");
+        // classMap.put("s15", "Key");
+        // classMap.put("s16", "Monster");
+        // classMap.put("s17", "Ray");
+        // classMap.put("s18", "Turtle");
 
         // Parcours du mapping pour trouver un préfixe correspondant
         for (Map.Entry<String, String> entry : classMap.entrySet()) {
@@ -59,4 +61,5 @@ public class ClassName {
 
         return classLabel;
     }
+
 }
