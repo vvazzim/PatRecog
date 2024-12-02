@@ -7,6 +7,7 @@ public class KMeans {
     private final int numClusters; // Nombre de clusters
     private final int maxIterations; // Nombre maximum d'itérations
     private List<List<Double>> centroids; // Liste des centroïdes
+    private static final double CONVERGENCE_THRESHOLD = 0.000001; // Seuil de convergence
 
     /**
      * Constructeur de KMeans.
@@ -21,7 +22,8 @@ public class KMeans {
     }
 
     /**
-     * Initialise les centroïdes aléatoirement.
+     * Initialise les centroïdes aléatoirement en choisissant les points au hasard
+     * dans les données.
      *
      * @param data Les données d'entrée.
      */
@@ -98,6 +100,21 @@ public class KMeans {
     }
 
     /**
+     * Calcule la somme des distances entre les anciens et nouveaux centroïdes.
+     *
+     * @param oldCentroids Les anciens centroïdes.
+     * @param newCentroids Les nouveaux centroïdes.
+     * @return La somme des distances.
+     */
+    private double calculateCentroidShift(List<List<Double>> oldCentroids, List<List<Double>> newCentroids) {
+        double totalShift = 0.0;
+        for (int i = 0; i < oldCentroids.size(); i++) {
+            totalShift += euclideanDistance(oldCentroids.get(i), newCentroids.get(i));
+        }
+        return totalShift;
+    }
+
+    /**
      * Exécute l'algorithme K-means sur les données fournies.
      *
      * @param data Les données d'entrée.
@@ -111,8 +128,14 @@ public class KMeans {
             List<List<Double>> oldCentroids = new ArrayList<>(centroids);
             updateCentroids(clusters);
 
-            if (oldCentroids.equals(centroids))
-                break; // Convergence
+            // Calcul de la somme des distances entre les anciens et nouveaux centroïdes
+            double shift = calculateCentroidShift(oldCentroids, centroids);
+
+            // Vérifier si la convergence est atteinte
+            if (shift < CONVERGENCE_THRESHOLD) {
+                System.out.println("Convergence atteinte après " + (iter + 1) + " itérations.");
+                break;
+            }
         }
 
         return assignPointsToClusters(data);

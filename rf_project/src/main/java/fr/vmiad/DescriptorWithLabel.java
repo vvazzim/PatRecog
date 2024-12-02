@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class DescriptorWithLabel {
     private String fileName; // Nom du fichier
-    private List<String> features; // Liste des caractéristiques du fichier
+    private List<Double> features; // Liste des caractéristiques du fichier
     private String label; // Le label (classe) du fichier
 
     /**
@@ -18,7 +18,7 @@ public class DescriptorWithLabel {
      * @param features Les caractéristiques associées au fichier.
      * @param label    Le label (classe) associé au fichier.
      */
-    public DescriptorWithLabel(String fileName, List<String> features, String label) {
+    public DescriptorWithLabel(String fileName, List<Double> features, String label) {
         this.fileName = fileName;
         this.features = features;
         this.label = label;
@@ -38,7 +38,7 @@ public class DescriptorWithLabel {
      *
      * @return Une liste de caractéristiques.
      */
-    public List<String> getFeatures() {
+    public List<Double> getFeatures() {
         return features;
     }
 

@@ -1,81 +1,67 @@
 package fr.vmiad;
 
-import java.io.File;
 import java.util.*;
+import java.io.File;
 
-/**
- * Classe utilitaire pour diviser les fichiers de descripteur en ensembles
- * d'entraînement et de test de manière déterministe.
- */
 public class Split {
 
-    // Map pour stocker les ensembles par extension
-    private final Map<String, List<String>> trainingSets = new HashMap<>();
-    private final Map<String, List<String>> testSets = new HashMap<>();
-    private final Random random; // Générateur aléatoire avec graine fixe
+    private Map<String, List<String>> trainingSets = new HashMap<>();
+    private Map<String, List<String>> testSets = new HashMap<>();
+    private Random random;
 
-    /**
-     * Constructeur de la classe Split avec une graine pour garantir une
-     * répartition déterministe.
-     *
-     * @param seed Graine pour le générateur aléatoire.
-     */
+    // Constructeur avec graine pour reproductibilité
     public Split(long seed) {
-        this.random = new Random(seed); // Générateur aléatoire basé sur la graine
+        this.random = new Random(seed);
     }
 
     /**
-     * Divise une liste de fichiers en ensembles d'entraînement et de test.
-     *
-     * @param descFiles  La liste des fichiers de descripteur à diviser.
-     * @param trainRatio La proportion des fichiers à inclure dans l'ensemble
-     *                   d'entraînement (entre 0 et 1).
-     * @param extension  L'extension des fichiers traités (ex. : ".zrk").
+     * Divise les données en ensembles d'entraînement et de test avec
+     * stratification.
+     * 
+     * @param files      Liste des fichiers à diviser.
+     * @param trainRatio Ratio de fichiers à inclure dans l'ensemble d'entraînement.
+     * @param extension  Extension des fichiers pour catégoriser (ex: ".yng").
      */
-    public void splitDataByExtension(List<File> descFiles, double trainRatio, String extension) {
+    public void splitDataByStratification(List<File> files, double trainRatio, String extension) {
+        // Map pour regrouper les fichiers par classe
+        Map<String, List<File>> filesByClass = new HashMap<>();
 
-        // Mélanger les fichiers de manière déterministe
-        Collections.shuffle(descFiles, random);
+        // Regrouper les fichiers par classe
+        for (File file : files) {
+            String fileName = file.getName();
+            String label = ClassName.getLabelFromFile(fileName); // Obtenir le label depuis le nom du fichier
+            filesByClass.putIfAbsent(label, new ArrayList<>());
+            filesByClass.get(label).add(file);
+        }
 
-        // Calculer la taille de l'ensemble d'entraînement
-        int totalFiles = descFiles.size();
-        int trainSize = (int) (totalFiles * trainRatio);
+        // Initialiser les ensembles d'entraînement et de test
+        trainingSets.put(extension, new ArrayList<>());
+        testSets.put(extension, new ArrayList<>());
 
-        // Initialiser les listes pour cette extension
-        trainingSets.putIfAbsent(extension, new ArrayList<>());
-        testSets.putIfAbsent(extension, new ArrayList<>());
+        // Diviser chaque groupe (classe) selon le ratio spécifié
+        for (Map.Entry<String, List<File>> entry : filesByClass.entrySet()) {
+            List<File> classFiles = entry.getValue();
+            Collections.shuffle(classFiles, random); // Mélanger les fichiers pour garantir un tirage aléatoire
 
-        List<String> trainingSet = trainingSets.get(extension);
-        List<String> testSet = testSets.get(extension);
+            int trainSize = (int) Math.round(classFiles.size() * trainRatio);
 
-        // Ajouter les fichiers dans les ensembles correspondants
-        for (int i = 0; i < totalFiles; i++) {
-            String fileName = descFiles.get(i).getName(); // Récupérer uniquement le nom du fichier
-
-            if (i < trainSize) {
-                trainingSet.add(fileName); // Ajouter au training set
-            } else {
-                testSet.add(fileName); // Ajouter au test set
+            // Ajouter les fichiers dans les ensembles respectifs
+            for (int i = 0; i < classFiles.size(); i++) {
+                if (i < trainSize) {
+                    trainingSets.get(extension).add(classFiles.get(i).getName());
+                } else {
+                    testSets.get(extension).add(classFiles.get(i).getName());
+                }
             }
         }
     }
 
-    /**
-     * Retourne les ensembles d'entraînement divisés par extension.
-     *
-     * @return Une map contenant les ensembles d'entraînement pour chaque extension.
-     */
+    // Getters pour obtenir les ensembles
     public Map<String, List<String>> getTrainingSets() {
         return trainingSets;
     }
 
-    /**
-     * Retourne les ensembles de test divisés par extension.
-     *
-     * @return Une map contenant les ensembles de test pour chaque extension.
-     */
     public Map<String, List<String>> getTestSets() {
         return testSets;
     }
-
 }

@@ -22,23 +22,29 @@ public class DescReader {
 
     /**
      * Lit le contenu d'un fichier descripteur ligne par ligne.
-     * Chaque ligne est ajoutée à une liste après suppression des espaces
-     * inutiles.
+     * Chaque ligne est convertie en un double et ajoutée à une liste.
      *
      * @param filePath Le chemin absolu du fichier descripteur à lire.
-     * @return Une liste contenant les lignes du fichier comme chaînes de
-     *         caractères.
-     * @throws IOException Si une erreur se produit lors de la lecture du fichier
-     *                     (exemple : fichier non trouvé).
+     * @return Une liste contenant les lignes du fichier comme doubles.
+     * @throws IOException           Si une erreur se produit lors de la lecture du
+     *                               fichier
+     *                               (exemple : fichier non trouvé).
+     * @throws NumberFormatException Si une ligne ne peut pas être convertie en
+     *                               double.
      */
-    public static List<String> readDesc(String filePath) throws IOException {
-        List<String> features = new ArrayList<>();
+    public static List<Double> readDesc(String filePath) throws IOException {
+
+        List<Double> features = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             // Lire chaque ligne du fichier
             while ((line = br.readLine()) != null) {
-                features.add(line.trim()); // Supprimer les espaces inutiles
+                // Supprimer les espaces inutiles et convertir en double
+                features.add(Double.parseDouble(line.trim()));
             }
+        } catch (NumberFormatException e) {
+            System.err.println("Erreur de conversion de ligne en double dans le fichier : " + filePath);
+            throw e;
         }
         return features;
     }
@@ -68,36 +74,5 @@ public class DescReader {
             System.out.println("Directory not found : " + directoryPath);
         }
         return descFiles;
-    }
-
-    /**
-     * Méthode principale pour tester les fonctionnalités de la classe DescReader.
-     * Elle parcourt un répertoire, liste les fichiers ayant une extension donnée,
-     * et lit les caractéristiques des fichiers pour les afficher.
-     *
-     * @param args Arguments de la ligne de commande (non utilisés dans cet
-     *             exemple).
-     */
-    public static void main(String[] args) {
-        // Répertoire contenant les fichiers descripteurs
-        String directory = "rf_project\\src\\main\\resources\\=Signatures\\=Zernike7";
-        String extension = ".zrk";
-
-        // Lister les fichiers descripteurs ayant l'extension ".zrk"
-        List<File> descFiles = listDescFiles(directory, extension);
-
-        // Parcourir et traiter chaque fichier trouvé
-        for (File file : descFiles) {
-            try {
-                // Lire les caractéristiques du fichier et les afficher
-                List<String> features = readDesc(file.getAbsolutePath());
-                System.out.println("File : " + file.getName());
-                System.out.println("Features : " + features);
-            } catch (IOException e) {
-                // Gestion des erreurs de lecture
-                System.err.println("Error trying to read file : " + file.getName());
-                e.printStackTrace();
-            }
-        }
     }
 }

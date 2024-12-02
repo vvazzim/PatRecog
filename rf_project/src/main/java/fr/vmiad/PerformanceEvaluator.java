@@ -39,6 +39,21 @@ public class PerformanceEvaluator {
             }
         }
 
+        // Affichage de la matrice de confusion
+        System.out.println("Matrice de confusion :");
+        for (String label : truePositive.keySet()) {
+            int tp = truePositive.get(label);
+            int fp = falsePositive.get(label);
+            int fn = falseNegative.get(label);
+            int tn = trueNegative.get(label);
+
+            System.out.println("Classe: " + label);
+            System.out.println("  True Positive (TP): " + tp);
+            System.out.println("  False Positive (FP): " + fp);
+            System.out.println("  False Negative (FN): " + fn);
+            System.out.println("  True Negative (TN): " + tn);
+        }
+
         // Calcul des métriques : Précision, Rappel, F1-score
         double precision = 0.0;
         double recall = 0.0;

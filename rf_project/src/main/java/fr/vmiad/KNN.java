@@ -49,7 +49,7 @@ public class KNN {
         List<Neighbor> neighbors = trainingData.stream()
                 .map(data -> new Neighbor(data.getLabel(), euclideanDistance(
                         features,
-                        data.getFeatures().stream().map(Double::parseDouble).collect(Collectors.toList()))))
+                        data.getFeatures().stream().collect(Collectors.toList()))))
                 .sorted(Comparator.comparingDouble(Neighbor::getDistance)) // Trier par distance
                 .limit(k) // Garder les K plus proches voisins
                 .collect(Collectors.toList());
