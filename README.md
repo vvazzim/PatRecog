@@ -1,30 +1,58 @@
-# Projet de Traitement de Données (Image)
+# Projet de Reconnaissance de Patrons
 
-## Description
-
-Ce projet est conçu pour manipuler et analyser des points de données. Il inclut des classes et des méthodes pour représenter des données sous forme de caractéristiques et d'étiquettes, facilitant ainsi leur utilisation dans des applications d'apprentissage automatique et d'analyse de données.
-
-## Fonctionnalités
-
-- Représentation des points de données avec des caractéristiques numériques.
-- Association d'étiquettes aux points de données pour une classification ou une analyse ultérieure.
-- Méthodes pour accéder aux caractéristiques et aux étiquettes des points de données.
-
-## Structure du Projet
-
-Le projet contient les éléments suivants :
-
-- **Classes** : Les classes principales qui définissent la structure des données.
-- **Méthodes** : Des méthodes pour manipuler et accéder aux données.
-- **Exemples d'utilisation** : Des exemples de code pour illustrer comment utiliser les classes et les méthodes.
+Ce projet utilise des algorithmes de classification pour traiter des fichiers de descripteurs. Deux méthodes principales sont implémentées : K-Nearest Neighbors (KNN) et K-Means.
 
 ## Prérequis
 
-- Java 8 ou version ultérieure
-- Un environnement de développement Java (comme IntelliJ IDEA, Eclipse, etc.)
+Avant d'exécuter les classes, assurez-vous d'avoir les éléments suivants :
 
-## Installation
+- Java JDK 8 ou supérieur installé sur votre machine.
+- Un IDE (comme IntelliJ IDEA ou Eclipse) ou un éditeur de texte pour exécuter le code.
+- Les fichiers de descripteurs au format `.zrk` dans le répertoire spécifié.
 
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/vvazzim/PatRecog
+## Structure du Projet
+
+Le projet est structuré comme suit :
+rf_project/ ├── src/ 
+            │ └── main/ 
+            │ └── java/ 
+            │ └── fr/ 
+            │ └── vmiad/ 
+            │ ├── MainKNN.java 
+            │ └── MainKMeans.java 
+            └── resources/ 
+            └── =Signatures/ 
+            └── =Zernike7/ 
+            └── *.zrk
+
+
+## Exécution de MainKNN
+
+1. **Ouvrir le fichier `MainKNN.java`** dans votre IDE ou éditeur de texte.
+2. **Vérifiez le chemin du répertoire** contenant les fichiers descripteurs. Le chemin par défaut est :
+
+3. Assurez-vous que ce répertoire contient des fichiers avec l'extension `.zrk`.
+
+3. **Compiler et exécuter** la classe `MainKNN`. Cela peut généralement être fait en cliquant sur le bouton "Run" dans votre IDE.
+
+4. **Résultats** : Le programme affichera les fichiers de test et évaluera la performance du modèle KNN.
+
+## Exécution de MainKMeans
+
+1. **Ouvrir le fichier `MainKMeans.java`** dans votre IDE ou éditeur de texte.
+2. **Vérifiez le chemin du répertoire** contenant les fichiers descripteurs. Le chemin par défaut est :
+
+Assurez-vous que ce répertoire contient des fichiers avec l'extension `.zrk`.
+
+3. **Compiler et exécuter** la classe `MainKMeans`. Cela peut généralement être fait en cliquant sur le bouton "Run" dans votre IDE.
+
+4. **Résultats** : Le programme affichera l'inertie pour différents nombres de clusters et vous aidera à déterminer le nombre optimal de clusters à utiliser.
+
+## Remarques
+
+- Assurez-vous que toutes les dépendances nécessaires sont incluses dans votre projet.
+- Les résultats peuvent varier en fonction des données d'entrée et des paramètres utilisés.
+
+## Aide
+
+Pour toute question ou problème, veuillez consulter la documentation ou contacter le développeur du projet.
