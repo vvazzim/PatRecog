@@ -27,4 +27,4 @@ Le projet contient les éléments suivants :
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://votre-repo-url.git
+   git clone https://github.com/vvazzim/PatRecog
