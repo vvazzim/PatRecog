@@ -1,5 +1,4 @@
-# Projet de Reconnaissance de Patrons
-
+# Projet de Reconnaissance des formes
 Ce projet utilise des algorithmes de classification pour traiter des fichiers de descripteurs. Deux méthodes principales sont implémentées : K-Nearest Neighbors (KNN) et K-Means.
 
 ## Prérequis
@@ -8,22 +7,6 @@ Avant d'exécuter les classes, assurez-vous d'avoir les éléments suivants :
 
 - Java JDK 8 ou supérieur installé sur votre machine.
 - Un IDE (comme IntelliJ IDEA ou Eclipse) ou un éditeur de texte pour exécuter le code.
-- Les fichiers de descripteurs au format `.zrk` dans le répertoire spécifié.
-
-## Structure du Projet
-
-Le projet est structuré comme suit :
-rf_project/ ├── src/ 
-            │ └── main/ 
-            │ └── java/ 
-            │ └── fr/ 
-            │ └── vmiad/ 
-            │ ├── MainKNN.java 
-            │ └── MainKMeans.java 
-            └── resources/ 
-            └── =Signatures/ 
-            └── =Zernike7/ 
-            └── *.zrk
 
 
 ## Exécution de MainKNN
