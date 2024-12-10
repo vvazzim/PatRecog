@@ -1,41 +1,35 @@
-# Projet de Reconnaissance des formes
-Ce projet utilise des algorithmes de classification pour traiter des fichiers de descripteurs. Deux méthodes principales sont implémentées : K-Nearest Neighbors (KNN) et K-Means.
+# Projet de Reconnaissance des Formes
+
+Ce projet implémente des algorithmes de classification appliqués à des fichiers de descripteurs de formes. Deux méthodes principales sont disponibles : K-Nearest Neighbors (KNN) et K-Means.
+
+---
 
 ## Prérequis
 
-Avant d'exécuter les classes, assurez-vous d'avoir les éléments suivants :
+Avant d'exécuter le projet, assurez-vous d'avoir :
 
-- Java JDK 8 ou supérieur installé sur votre machine.
-- Un IDE (comme IntelliJ IDEA ou Eclipse) ou un éditeur de texte pour exécuter le code.
+- **Java JDK 8** ou supérieur installé sur votre machine.
+- Un IDE (par exemple, IntelliJ IDEA ou Eclipse) ou un éditeur de texte pour travailler sur le code.
+- Les fichiers de descripteurs nécessaires dans le bon répertoire (par exemple, `.zrk`, `.art`, etc.).
 
+---
 
-## Exécution de MainKNN
+## Configuration avant exécution
 
-1. **Ouvrir le fichier `MainKNN.java`** dans votre IDE ou éditeur de texte.
-2. **Vérifiez le chemin du répertoire** contenant les fichiers descripteurs. Le chemin par défaut est :
+### Modification du chemin du répertoire et de l'extension des fichiers
 
-3. Assurez-vous que ce répertoire contient des fichiers avec l'extension `.zrk`.
+Pour tester différentes méthodes, vous devrez modifier **manuellement** :
+1. **Le chemin du répertoire** : Ce chemin pointe vers le dossier contenant les fichiers de descripteurs (par exemple : `SxxNyy.zrk`).
+2. **L'extension des fichiers** : Cela permet de spécifier quelle méthode de descripteur sera utilisée (par exemple, `.zrk`, `.art`, `.gfd`).
 
-3. **Compiler et exécuter** la classe `MainKNN`. Cela peut généralement être fait en cliquant sur le bouton "Run" dans votre IDE.
+Les modifications doivent être effectuées directement dans les fichiers suivants avant exécution :
+- **`MainKNN.java`**
+- **`MainKMeans.java`**
 
-4. **Résultats** : Le programme affichera les fichiers de test et évaluera la performance du modèle KNN.
+Recherchez et modifiez les variables associées au chemin du répertoire et à l'extension (par exemple, `directory` et `extension`) dans le code.
 
-## Exécution de MainKMeans
-
-1. **Ouvrir le fichier `MainKMeans.java`** dans votre IDE ou éditeur de texte.
-2. **Vérifiez le chemin du répertoire** contenant les fichiers descripteurs. Le chemin par défaut est :
-
-Assurez-vous que ce répertoire contient des fichiers avec l'extension `.zrk`.
-
-3. **Compiler et exécuter** la classe `MainKMeans`. Cela peut généralement être fait en cliquant sur le bouton "Run" dans votre IDE.
-
-4. **Résultats** : Le programme affichera l'inertie pour différents nombres de clusters et vous aidera à déterminer le nombre optimal de clusters à utiliser.
-
-## Remarques
-
-- Assurez-vous que toutes les dépendances nécessaires sont incluses dans votre projet.
-- Les résultats peuvent varier en fonction des données d'entrée et des paramètres utilisés.
-
-## Aide
-
-Pour toute question ou problème, veuillez consulter la documentation ou contacter le développeur du projet.
+Exemple de modification dans le fichier `MainKNN.java` :
+```java
+// Exemple de chemin et extension
+String directory = "chemin/vers/le/répertoire"; // À modifier
+String extension = ".zrk";                     // Modifier selon la méthode
