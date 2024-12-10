@@ -2,6 +2,9 @@ package fr.vmiad;
 
 import java.util.*;
 
+/**
+ * Classe implémentant l'algorithme K-Means.
+ */
 public class KMeans {
 
     private final int numClusters; // Nombre de clusters

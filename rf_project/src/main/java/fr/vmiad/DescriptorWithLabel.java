@@ -58,6 +58,6 @@ public class DescriptorWithLabel {
      */
     @Override
     public String toString() {
-        return "File: " + fileName + " -> Label: " + label;
+        return "File: " + fileName + " Label: " + label;
     }
 }

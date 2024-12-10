@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Classe utilitaire pour gérer les fichiers descripteurs.
+ * Classe pour gérer les fichiers descripteurs.
  * 
  * Cette classe permet d'effectuer plusieurs opérations sur les fichiers
  * descripteurs, telles que :
@@ -54,8 +54,7 @@ public class DescReader {
      * donné.
      *
      * @param directoryPath Le chemin du répertoire à parcourir.
-     * @param extension     L'extension des fichiers à rechercher (par exemple :
-     *                      ".zrk").
+     * @param extension     L'extension des fichiers à rechercher.
      * @return Une liste d'objets {@link File} représentant les fichiers ayant
      *         l'extension donnée.
      */

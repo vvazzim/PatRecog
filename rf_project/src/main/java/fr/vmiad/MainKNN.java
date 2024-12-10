@@ -32,7 +32,6 @@ public class MainKNN {
         // Obtenir les fichiers d'entraînement et de test
         List<String> trainingFiles = splitter.getTrainingSets().get(extension);
         List<String> testFiles = splitter.getTestSets().get(extension);
-        System.out.println(testFiles);
 
         // Étape 3 : Créer les objets DescriptorWithLabel pour les fichiers
         // d'entraînement
@@ -87,10 +86,11 @@ public class MainKNN {
                 predictedLabels.add(predictedLabel);
 
                 // Afficher les résultats
-                // System.out.println("File: " + fileName);
-                // System.out.println("Actual label: " + actualLabel);
-                // System.out.println("Predicted label: " + predictedLabel);
-                // System.out.println();
+                String result = "File: " + fileName + "\n" +
+                        "Actual label: " + actualLabel + "\n" +
+                        "Predicted label: " + predictedLabel + "\n";
+
+                System.out.println(result);
 
             } catch (IOException e) {
                 // Gérer les erreurs de lecture

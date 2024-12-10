@@ -47,9 +47,7 @@ public class KNN {
     public String predict(List<Double> features) {
         // Calculer les distances entre le point cible et chaque point d'entraînement
         List<Neighbor> neighbors = trainingData.stream()
-                .map(data -> new Neighbor(data.getLabel(), euclideanDistance(
-                        features,
-                        data.getFeatures().stream().collect(Collectors.toList()))))
+                .map(data -> new Neighbor(data.getLabel(), euclideanDistance(features, data.getFeatures())))
                 .sorted(Comparator.comparingDouble(Neighbor::getDistance)) // Trier par distance
                 .limit(k) // Garder les K plus proches voisins
                 .collect(Collectors.toList());
@@ -61,6 +59,37 @@ public class KNN {
                 .max(Comparator.comparingLong(Map.Entry::getValue)) // Trouver le label majoritaire
                 .get()
                 .getKey();
+    }
+
+    // Methode pour la courbe Précision/Rappel
+    /**
+     * Prédit les scores pour chaque classe pour un nouveau point donné ses
+     * caractéristiques.
+     *
+     * @param features Les caractéristiques du point à prédire.
+     * @return Un map des scores pour chaque classe.
+     */
+    public Map<String, Double> predictWithScores(List<Double> features) {
+        // Calculer les distances entre le point cible et chaque point d'entraînement
+        List<Neighbor> neighbors = trainingData.stream()
+                .map(data -> new Neighbor(data.getLabel(), euclideanDistance(features, data.getFeatures())))
+                .sorted(Comparator.comparingDouble(Neighbor::getDistance)) // Trier par distance
+                .limit(k) // Garder les K plus proches voisins
+                .collect(Collectors.toList());
+
+        // Compter le nombre d'occurrences de chaque label parmi les K voisins
+        Map<String, Integer> labelCounts = new HashMap<>();
+        for (Neighbor neighbor : neighbors) {
+            labelCounts.put(neighbor.getLabel(), labelCounts.getOrDefault(neighbor.getLabel(), 0) + 1);
+        }
+
+        // Calculer le score de chaque label (proportion de voisins pour chaque label)
+        Map<String, Double> classScores = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : labelCounts.entrySet()) {
+            classScores.put(entry.getKey(), entry.getValue() / (double) k);
+        }
+
+        return classScores;
     }
 
     /**
